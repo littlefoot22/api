@@ -1,6 +1,17 @@
+from typing import List
+
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 app = FastAPI()
+
+class ebi(BaseModel):
+    ebi_name: str
+    target_outcome: str
+    pubmed_url: str
+
+AIMS = ebi(ebi_name="Adherence Improving self-Management Strategy", target_outcome="rxadherence", pubmed_url="https://www.ncbi.nlm.nih.gov/pubmed/28262598")
+ATHENA = ebi(ebi_name="Adherence Through Home Education and Nursing Assessment", target_outcome="rxadherence", pubmed_url="http://www.ncbi.nlm.nih.gov/pubmed/16770291")
 
 
 @app.get("/")
@@ -10,7 +21,7 @@ async def root():
 
 @app.get("/ebi")
 async def root():
-    return {"message": "This is a list of supported evidence based interventions."}
+    return AIMS, ATHENA
 
 @app.post("/ebi")
 async def root():
@@ -18,7 +29,7 @@ async def root():
 
 @app.put("/ebi")
 async def root():
-    return {"message": "You do not have permissions to update an intervention."}
+    return ebis
 
 @app.delete("/ebi")
 async def root():
@@ -28,3 +39,6 @@ async def root():
 async def root():
     return {"message": "This is a description of the intervention."}
 
+@app.get("/patient")
+async def root():
+    return {"message": "return data structure of a patient"}
