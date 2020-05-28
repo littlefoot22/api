@@ -8,10 +8,12 @@ app = FastAPI()
 class ebi(BaseModel):
     ebi_name: str
     target_outcome: str
+    target_pop: str
     pubmed_url: str
 
-AIMS = ebi(ebi_name="Adherence Improving self-Management Strategy", target_outcome="rxadherence", pubmed_url="https://www.ncbi.nlm.nih.gov/pubmed/28262598")
-ATHENA = ebi(ebi_name="Adherence Through Home Education and Nursing Assessment", target_outcome="rxadherence", pubmed_url="http://www.ncbi.nlm.nih.gov/pubmed/16770291")
+AIMS = ebi(ebi_name="Adherence Improving self-Management Strategy", target_outcome="rxadherence", target_pop="HIV clinic patients who are antiretroviral treatment-experienced or treatment naïve", pubmed_url="https://www.ncbi.nlm.nih.gov/pubmed/28262598")
+
+ATHENA = ebi(ebi_name="Adherence Through Home Education and Nursing Assessment", target_outcome="rxadherence", target_pop= "HIV-positive clinic patients who are antiretroviral treatment-experienced", pubmed_url="http://www.ncbi.nlm.nih.gov/pubmed/16770291")
 
 
 @app.get("/")

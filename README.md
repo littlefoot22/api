@@ -6,5 +6,5 @@ A programmatic interact for matching, enrolling, and rewarding patients for beha
 pip install fastapi
 ### Install Uvicorn
 pip install uvicorn
-## Run App
+### Run App
 uvicorn main:app --reload
