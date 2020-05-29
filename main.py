@@ -1,9 +1,17 @@
 from typing import List
+import csv
+
+# with open('/data/rxadherence.csv', 'r') as f:
+#    reader = csv.reader(f)
+#    for row in reader:
+#        my_list.append(ebi(row[0], row[1], row[2:]))
 
 from fastapi import FastAPI
 from pydantic import BaseModel
 
 app = FastAPI()
+
+rxadherence = open('data/rxadherence.csv')
 
 class ebi(BaseModel):
     ebi_name: str
@@ -15,15 +23,16 @@ AIMS = ebi(ebi_name="Adherence Improving self-Management Strategy", target_outco
 
 ATHENA = ebi(ebi_name="Adherence Through Home Education and Nursing Assessment", target_outcome="rxadherence", target_pop= "HIV-positive clinic patients who are antiretroviral treatment-experienced", pubmed_url="http://www.ncbi.nlm.nih.gov/pubmed/16770291")
 
-
 @app.get("/")
 async def root():
     return {"message": "Kalamos provides a programmatic interfact for matching, enrolling, and rewarding patients for behavioral health interventions. Our main focus is on communicable diseases, specifically HIV."}
 
-
 @app.get("/ebi")
 async def root():
-    return AIMS, ATHENA
+    return [
+        row
+        for row in rxadherence
+    ]
 
 @app.post("/ebi")
 async def root():
@@ -37,9 +46,9 @@ async def root():
 async def root():
     return {"message": "You do not have permissions to delete an intervention."}
 
-@app.get("/ebi/amvspm")
+@app.get("/clinic")
 async def root():
-    return {"message": "This is a description of the intervention."}
+    return {"message": "This should search the npin by zip https://npin.cdc.gov/api/organization/proximity"}
 
 @app.get("/patient")
 async def root():
