@@ -6,6 +6,6 @@ class Ebi(BaseModel):
     target_outcome: str
     target_pop: str
     pubmed_url: str
-​
-    class Config:
-        orm_mode = True
+
+class Config:
+    orm_mode = True
