@@ -28,7 +28,7 @@ async def root():
     return {"message": "Kalamos provides a programmatic interfact for matching, enrolling, and rewarding patients for behavioral health interventions. Our main focus is on communicable diseases, specifically HIV."}
 
 
-@app.get("/ebis", response_model=List[schemas.Ebi])
+@app.get("/ebis")
 # async def root():
 #    return {"message": "hi" }
 # async def get_ebis(db: Session, skip: int = 0, limit: int = 10):
