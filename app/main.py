@@ -7,11 +7,25 @@ import crud
 import models
 import schemas
 from database import SessionLocal, engine
+from fastapi.middleware.cors import CORSMiddleware
+
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:3000",
+    "http://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Dependency
 
 
@@ -58,5 +72,9 @@ def get_ebis(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 #    return {"message": "return data structure of a patient"}
 
 @app.post("/users")
-def post_registration(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    return {"message": "You do not have permissions to create a new intervention."}
+def post_registration(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    #db_user = crud.get_user_by_email(db, email=user.email)
+    #if db_user:
+    #    raise HTTPException(status_code=400, detail="Email already registered")
+    crud.create_user(user, db)
+    return {"message": "user created"}
