@@ -56,3 +56,7 @@ def get_ebis(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 # @app.get("/patient")
 # async def root():
 #    return {"message": "return data structure of a patient"}
+
+@app.post("/users")
+def post_registration(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return {"message": "You do not have permissions to create a new intervention."}
