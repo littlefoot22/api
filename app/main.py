@@ -78,3 +78,11 @@ def post_registration(user: schemas.UserCreate, db: Session = Depends(get_db)):
     #    raise HTTPException(status_code=400, detail="Email already registered")
     crud.create_user(user, db)
     return {"message": "user created"}
+
+@app.post("/login")
+def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
+    #db_user = crud.get_user_by_email(db, email=user.email)
+    #if db_user:
+    #    raise HTTPException(status_code=400, detail="Email already registered")
+    crud.check_password(user, db)
+    return {"message": "user created"}

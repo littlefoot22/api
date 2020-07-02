@@ -13,3 +13,7 @@ class Config:
 class UserCreate(BaseModel):
     email: str = None
     password: str
+
+class UserLogin(BaseModel):
+    email: str = None
+    password: str
